@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B65HYD2H60"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B65HYD2H60');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chattanooga Opportunity & Economic Security Feed</title>
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --bg-color: #f1f5f9;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --banner-blue: #004360;
+      --button-teal: #00A3BD;
+    }
+
+    body {
+      font-family: -apple-system, system-ui, sans-serif;
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Banner Layout */
+    .i-team-banner {
+      background-color: var(--banner-blue);
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .banner-logo {
+      height: 45px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .banner-text {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+      flex-grow: 1;
+      padding: 0 15px;
+    }
+
+    .survey-button {
+      background-color: var(--button-teal);
+      color: white !important;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 14px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: opacity 0.2s;
+    }
+
+    .survey-button:hover { opacity: 0.9; }
+
+    .header, .feed-container, #status-msg {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    
+    .header {
+      padding-top: 30px;
+      max-width: 1200px;
+      margin: 0 auto 30px auto;
+      text-align: center;
+    }
+
+    /* Language Toggle Switch */
+    .language-controls {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 22px;
+    }
+
+    .switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 22px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px; width: 16px; left: 3px; bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked+.slider { background-color: var(--primary-color); }
+    input:checked+.slider:before { transform: translateX(22px); }
+
+    /* Filters */
+    .filter-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 0 auto 20px auto;
+    }
+
+    #searchBar, #categoryFilter {
+      padding: 12px 20px;
+      font-size: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 30px;
+      outline: none;
+      background: white;
+      box-sizing: border-box;
+    }
+
+    #searchBar { flex: 2; min-width: 280px; }
+    #categoryFilter { flex: 1; min-width: 200px; cursor: pointer; }
+
+    /* Optimized Feed Layout */
+    .feed-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: flex-start;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Post Cards */
+    .post-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-image { width: 100%; height: auto; display: block; background-color: #eee; }
+    .post-content { padding: 20px; }
+    .post-card p { font-size: 0.95rem; line-height: 1.6; margin: 0; color: #334155; }
+    
+    /* AI Tag Styling */
+    .ai-badge {
+      display: inline-block;
+      background-color: #e0f2fe;
+      color: #0369a1;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .post-author {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px 18px 20px;
+      font-size: 0.75rem;
+      color: #64748b;
+      font-style: italic;
+    }
+
+    #status-msg { text-align: center; padding: 40px; color: #64748b; width: 100%; }
+
+    @media (max-width: 768px) {
+      .i-team-banner { flex-direction: column; text-align: center; gap: 15px; padding: 20px; }
+      .banner-text { padding: 0; }
+      .header h1 { font-size: 1.5rem; }
+      .column { min-width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="i-team-banner">
+    <img src="logo.png" alt="Chattanooga Logo" class="banner-logo">
+    <p class="banner-text">
+      This prototype uses AI to scan city updates and instantly surface opportunities focused on employment, training, networking, and economic stability.
+    </p>
+    <a href="YOUR_SURVEY_URL" target="_blank" class="survey-button">User Survey</a>
+  </div>
+
+  <div id="google_translate_element" style="position: absolute; top: -9999px;"></div>
+
+  <div class="header">
+    <h1>Economic Opportunity & Events Hub</h1>
+
+    <div class="language-controls">
+      <span>ENGLISH</span>
+      <label class="switch">
+        <input type="checkbox" id="langToggle" onchange="toggleLanguage()">
+        <span class="slider"></span>
+      </label>
+      <span>ESPAÑOL</span>
+    </div>
+
+    <div class="filter-controls">
+      <input type="text" id="searchBar" placeholder="Search opportunities..." onkeyup="applyFilters()">
+      <select id="categoryFilter" onchange="handleCategoryChange()">
+        <option value="All Opportunities">All Opportunities</option>
+        <option value="Hiring Fair">Hiring Fairs</option>
+        <option value="Training & Upskilling">Training & Upskilling</option>
+        <option value="Networking Event">Networking Events</option>
+        <option value="Job Listing">Job Listings</option>
+        <option value="Support Services">Support Services</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="status-msg">Loading parsed opportunities...</div>
+
+  <div id="news-wall" class="feed-container">
+    <div class="column" id="col-1"></div>
+    <div class="column" id="col-2"></div>
+    <div class="column" id="col-3"></div>
+  </div>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en', includedLanguages: 'en,es', autoDisplay: false
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <script>
+    // Global variable to hold all posts fetched from your AI-filtered database
+    let allOpportunities = [];
+
+    function toggleLanguage() {
+      const isSpanish = document.getElementById('langToggle').checked;
+      const combo = document.querySelector('.goog-te-combo');
+      if (combo) {
+        combo.value = isSpanish ? 'es' : 'en';
+        combo.dispatchEvent(new Event('change'));
+      }
+    }
+
+    async function loadOpportunities() {
+      const status = document.getElementById('status-msg');
+      
+      // PLACEHOLDER: Replace this with the API endpoint of your filtered database 
+      // (e.g., an Airtable share URL, a Supabase API Endpoint, or a public JSON file link)
+      const DATA_ENDPOINT = "./opportunities.json";
+
+      try {
+        status.style.display = 'block';
+        
+        // Simulating data fetch. Once your backend is live, uncomment the lines below:
+        const response = await fetch(DATA_ENDPOINT);
+        allOpportunities = await response.json();
+
+        if (allOpportunities.length === 0) {
+          status.innerText = "No relevant resources found at this time.";
+          return;
+        }
+
+        status.style.display = 'none';
+        displayPosts(allOpportunities);
+      } catch (err) {
+        status.innerHTML = `<div style="color:red;">Error loading updates.</div>`;
+      }
+    }
+
+    function displayPosts(posts) {
+      const cols = [document.getElementById('col-1'), document.getElementById('col-2'), document.getElementById('col-3')];
+      cols.forEach(c => c.innerHTML = "");
+
+      let visibleCount = 0;
+      posts.forEach((post) => {
+        let imageSrc = post.image;
+        let pubDate = "";
+        if (post.date_published) {
+          const d = new Date(post.date_published);
+          pubDate = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+        }
+
+        const imgTag = imageSrc ? `<img src="${imageSrc}" class="post-image" onerror="this.parentElement.removeChild(this)">` : '';
+        const cleanText = post.content_text.length > 400 ? post.content_text.substring(0, 400) + "..." : post.content_text;
+        
+        // Inserted the AI Category Badge dynamically inside the content card
+        const aiBadge = `<span class="ai-badge">${post.ai_category}</span>`;
+        const titleTag = post.title ? `<p style="margin-top: 0; margin-bottom: 8px;"><strong>${post.title}</strong></p>` : '';
+        const textTag = `<div class="post-content">${aiBadge}${titleTag}<p>${cleanText}</p></div>`;
+        
+        const authorTag = `<span class="post-author"><span>${pubDate}</span><span>${post.original_source || 'City Update'}</span></span>`;
+
+        // Store the category directly in a custom data attribute for instant frontend filtering
+        const cardHtml = `<a href="${post.url}" class="post-card" data-category="${post.ai_category}" target="_blank">${imgTag}${textTag}${authorTag}</a>`;
+        
+        cols[visibleCount % 3].insertAdjacentHTML('beforeend', cardHtml);
+        visibleCount++;
+      });
+    }
+
+    function handleCategoryChange() {
+      const selectedCategory = document.getElementById('categoryFilter').value;
+      applyFilters(selectedCategory);
+    }
+
+    function applyFilters(selectedCategory = document.getElementById('categoryFilter').value) {
+      const query = document.getElementById('searchBar').value.toLowerCase();
+      
+      document.querySelectorAll('.post-card').forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        const matchesSearch = card.innerText.toLowerCase().includes(query);
+        const matchesCategory = (selectedCategory === "All Opportunities" || cardCategory === selectedCategory);
+
+        if (matchesSearch && matchesCategory) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    // Initialize layout
+    loadOpportunities();
+  </script>
+</body>
+
+</html>
