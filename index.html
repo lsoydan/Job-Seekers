@@ -12,7 +12,7 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chattanooga Opportunity & Economic Security Feed</title>
+  <title>Economic Opportunity & Events Hub</title>
   <style>
     :root {
       --primary-color: #2563eb;
@@ -165,7 +165,7 @@
       gap: 20px;
     }
 
-    /* Post Cards */
+    /* Post Cards Matching original styling */
     .post-card {
       background: var(--card-bg);
       border-radius: 16px;
@@ -174,6 +174,8 @@
       color: inherit;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
     }
 
     .post-card:hover {
@@ -181,11 +183,28 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 
-    .post-image { width: 100%; height: auto; display: block; background-color: #eee; }
-    .post-content { padding: 20px; }
-    .post-card p { font-size: 0.95rem; line-height: 1.6; margin: 0; color: #334155; }
+    .post-image { 
+      width: 100%; 
+      height: auto; 
+      max-height: 250px;
+      object-fit: cover;
+      display: block; 
+      background-color: #f8fafc; 
+    }
     
-    /* AI Tag Styling */
+    .post-content { 
+      padding: 20px; 
+      flex-grow: 1;
+    }
+    
+    .post-card p { 
+      font-size: 0.95rem; 
+      line-height: 1.6; 
+      margin: 0; 
+      color: #334155; 
+    }
+    
+    /* Clean Badge Presentation */
     .ai-badge {
       display: inline-block;
       background-color: #e0f2fe;
@@ -195,16 +214,20 @@
       font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
     }
 
+    /* Fixed alignment for author footer preventing text smashes */
     .post-author {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 0 20px 18px 20px;
       font-size: 0.75rem;
       color: #64748b;
       font-style: italic;
+      background: var(--card-bg);
+      margin-top: auto;
     }
 
     #status-msg { text-align: center; padding: 40px; color: #64748b; width: 100%; }
@@ -222,9 +245,9 @@
   <div class="i-team-banner">
     <img src="logo.png" alt="Chattanooga Logo" class="banner-logo">
     <p class="banner-text">
-      This prototype uses AI to scan city updates and instantly surface opportunities focused on employment, training, networking, and economic stability.
+      This prototype uses AI to scan updates and instantly surface opportunities focused on employment, training, networking, and economic stability.
     </p>
-    <a href="YOUR_SURVEY_URL" target="_blank" class="survey-button">User Survey</a>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeiqIRddsindAw5gyvsWw0bCnnbzBgxh0-rZzzk7JJ1WYTziQ/viewform?usp=sharing&ouid=103538615642769301622" target="_blank" class="survey-button">User Survey</a>
   </div>
 
   <div id="google_translate_element" style="position: absolute; top: -9999px;"></div>
@@ -272,7 +295,6 @@
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <script>
-    // Global variable to hold all posts fetched from your AI-filtered database
     let allOpportunities = [];
 
     function toggleLanguage() {
@@ -286,19 +308,14 @@
 
     async function loadOpportunities() {
       const status = document.getElementById('status-msg');
-      
-      // PLACEHOLDER: Replace this with the API endpoint of your filtered database 
-      // (e.g., an Airtable share URL, a Supabase API Endpoint, or a public JSON file link)
-      const DATA_ENDPOINT = "./opportunities.json";
+      const DATA_ENDPOINT = "./opportunities.json"; 
 
       try {
         status.style.display = 'block';
-        
-        // Simulating data fetch. Once your backend is live, uncomment the lines below:
         const response = await fetch(DATA_ENDPOINT);
         allOpportunities = await response.json();
 
-        if (allOpportunities.length === 0) {
+        if (!allOpportunities || allOpportunities.length === 0) {
           status.innerText = "No relevant resources found at this time.";
           return;
         }
@@ -306,7 +323,7 @@
         status.style.display = 'none';
         displayPosts(allOpportunities);
       } catch (err) {
-        status.innerHTML = `<div style="color:red;">Error loading updates.</div>`;
+        status.innerHTML = `<div style="color:red;">Waiting for initial AI processing log...</div>`;
       }
     }
 
@@ -318,22 +335,34 @@
       posts.forEach((post) => {
         let imageSrc = post.image;
         let pubDate = "";
+        
         if (post.date_published) {
           const d = new Date(post.date_published);
           pubDate = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
         }
 
+        // Clean out messy duplicate string blocks often found in social dumps
+        let description = post.content_text || "";
+        const halfLength = Math.floor(description.length / 2);
+        if (halfLength > 10 && description.substring(0, halfLength) === description.substring(halfLength).trim()) {
+            description = description.substring(0, halfLength).trim();
+        }
+
         const imgTag = imageSrc ? `<img src="${imageSrc}" class="post-image" onerror="this.parentElement.removeChild(this)">` : '';
-        const cleanText = post.content_text.length > 400 ? post.content_text.substring(0, 400) + "..." : post.content_text;
+        const cleanText = description.length > 300 ? description.substring(0, 300) + "..." : description;
         
-        // Inserted the AI Category Badge dynamically inside the content card
         const aiBadge = `<span class="ai-badge">${post.ai_category}</span>`;
-        const titleTag = post.title ? `<p style="margin-top: 0; margin-bottom: 8px;"><strong>${post.title}</strong></p>` : '';
+        
+        // Clean out redundant titles matching content
+        let titleText = post.title || "";
+        if(titleText.length > 60) titleText = titleText.substring(0,60) + "...";
+        const titleTag = titleText ? `<p style="margin-top: 0; margin-bottom: 8px;"><strong>${titleText}</strong></p>` : '';
+        
         const textTag = `<div class="post-content">${aiBadge}${titleTag}<p>${cleanText}</p></div>`;
         
-        const authorTag = `<span class="post-author"><span>${pubDate}</span><span>${post.original_source || 'City Update'}</span></span>`;
+        // Formatted with distinct span containers to ensure Flexbox pushes them apart smoothly
+        const authorTag = `<div class="post-author"><span>${pubDate}</span><span>${post.original_source || 'Opportunity Hub'}</span></div>`;
 
-        // Store the category directly in a custom data attribute for instant frontend filtering
         const cardHtml = `<a href="${post.url}" class="post-card" data-category="${post.ai_category}" target="_blank">${imgTag}${textTag}${authorTag}</a>`;
         
         cols[visibleCount % 3].insertAdjacentHTML('beforeend', cardHtml);
@@ -355,15 +384,15 @@
         const matchesCategory = (selectedCategory === "All Opportunities" || cardCategory === selectedCategory);
 
         if (matchesSearch && matchesCategory) {
-          card.style.display = "block";
+          card.style.display = "flex";
         } else {
           card.style.display = "none";
         }
       });
     }
 
-    // Initialize layout
     loadOpportunities();
+    setInterval(loadOpportunities, 10 * 60 * 1000); // Check for backend updates every 10 mins
   </script>
 </body>
 
