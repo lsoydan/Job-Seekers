@@ -2,13 +2,14 @@
 <html lang="en">
 
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B65HYD2H60"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-B65HYD2H60');
-  </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B65HYD2H60"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B65HYD2H60');
+</script>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +29,7 @@
       background-color: var(--bg-color);
       margin: 0;
       padding: 0;
+      top: 0 !important;
     }
 
     /* Banner Layout */
@@ -41,9 +43,19 @@
       gap: 20px;
     }
 
-    .banner-logo { height: 45px; width: auto; flex-shrink: 0; }
+    .banner-logo {
+      height: 45px;
+      width: auto;
+      flex-shrink: 0;
+    }
 
-    .banner-text { font-size: 14px; line-height: 1.5; margin: 0; flex-grow: 1; padding: 0 15px; }
+    .banner-text {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+      flex-grow: 1;
+      padding: 0 15px;
+    }
 
     .survey-button {
       background-color: var(--button-teal);
@@ -57,32 +69,148 @@
       flex-shrink: 0;
       transition: opacity 0.2s;
     }
-    .survey-button:hover { opacity: 0.9; }
 
-    .header, .feed-container, #status-msg { padding-left: 20px; padding-right: 20px; }
+    .survey-button:hover {
+      opacity: 0.9;
+    }
+
+    /* Main content padding for consistency */
+    .header, .feed-container, #status-msg {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
     
-    .header { padding-top: 30px; max-width: 1200px; margin: 0 auto 30px auto; text-align: center; }
+    .header {
+      padding-top: 30px;
+      max-width: 1200px;
+      margin: 0 auto 30px auto;
+      text-align: center;
+    }
+
+    /* Google Translate Hiding */
+    .goog-te-banner-frame.skiptranslate,
+    .goog-te-gadget span,
+    .goog-logo-link {
+      display: none !important;
+    }
+
+    .goog-te-gadget {
+      color: transparent !important;
+    }
+
+    #google_translate_element {
+      position: absolute;
+      top: -9999px;
+    }
 
     /* Language Toggle Switch */
-    .language-controls { margin-bottom: 20px; display: flex; justify-content: center; align-items: center; gap: 12px; font-weight: 700; font-size: 13px; color: #64748b; }
-    .switch { position: relative; display: inline-block; width: 44px; height: 22px; }
-    .switch input { opacity: 0; width: 0; height: 0; }
-    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .3s; border-radius: 22px; }
-    .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; }
-    input:checked+.slider { background-color: var(--primary-color); }
-    input:checked+.slider:before { transform: translateX(22px); }
+    .language-controls {
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 22px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #cbd5e1;
+      transition: .3s;
+      border-radius: 22px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked+.slider {
+      background-color: var(--primary-color);
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(22px);
+    }
 
     /* Filters */
-    .filter-controls { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; max-width: 800px; margin: 0 auto 20px auto; }
-    #searchBar, #categoryFilter { padding: 12px 20px; font-size: 15px; border: 1px solid #cbd5e1; border-radius: 30px; outline: none; background: white; box-sizing: border-box; }
-    #searchBar { flex: 2; min-width: 280px; }
-    #categoryFilter { flex: 1; min-width: 200px; cursor: pointer; }
+    .filter-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 0 auto 20px auto;
+    }
 
-    /* Optimized Feed Layout - Matching standard grid behavior */
-    .feed-container { display: flex; flex-wrap: wrap; gap: 20px; max-width: 1200px; margin: 0 auto; align-items: flex-start; }
-    .column { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 20px; }
+    #searchBar,
+    #authorFilter {
+      padding: 12px 20px;
+      font-size: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 30px;
+      outline: none;
+      background: white;
+      box-sizing: border-box;
+    }
 
-    /* Standard Card Structure - Exact match to visual style from target */
+    #searchBar {
+      flex: 2;
+      min-width: 280px;
+    }
+
+    #authorFilter {
+      flex: 1;
+      min-width: 200px;
+      cursor: pointer;
+    }
+
+    /* Optimized Feed Layout */
+    .feed-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: flex-start;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Post Cards */
     .post-card {
       background: var(--card-bg);
       border-radius: 16px;
@@ -91,37 +219,60 @@
       color: inherit;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       transition: transform 0.2s, box-shadow 0.2s;
-      display: flex; /* Robust structure for content/footer balance */
-      flex-direction: column;
     }
-    .post-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); }
 
-    .post-image { width: 100%; height: auto; display: block; background-color: #f1f5f9; }
-    
-    .post-content { padding: 20px; flex-grow: 1; }
-    
-    .post-card p { font-size: 0.95rem; line-height: 1.6; margin: 0; color: #334155; font-weight: 400; }
-    
-    /* Footer layout - Locked to match image_6.png spacing exactly */
+    .post-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      background-color: #eee;
+    }
+
+    .post-content {
+      padding: 20px;
+    }
+
+    .post-card p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+      color: #334155;
+    }
+
     .post-author {
       display: flex;
-      justify-content: space-between; /* Pushes date left, source right */
-      align-items: center;
-      padding: 0 20px 18px 20px; /* Specific padding from target style */
+      justify-content: space-between;
+      padding: 0 20px 18px 20px;
       font-size: 0.75rem;
-      color: #64748b; /* Target grey color */
-      font-weight: 400; /* No bold */
-      background: var(--card-bg);
-      margin-top: auto; /* Keeps footer at bottom even with short text */
+      color: #64748b;
+      font-style: italic;
     }
 
-    #status-msg { text-align: center; padding: 40px; color: #64748b; width: 100%; }
+    #status-msg {
+      text-align: center;
+      padding: 40px;
+      color: #64748b;
+      width: 100%;
+    }
 
+    /* Mobile Responsive Tweaks */
     @media (max-width: 768px) {
-      .i-team-banner { flex-direction: column; text-align: center; gap: 15px; padding: 20px; }
+      .i-team-banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 20px;
+      }
       .banner-text { padding: 0; }
       .header h1 { font-size: 1.5rem; }
       .column { min-width: 100%; }
+      .post-content { padding: 15px; }
+      .post-author { padding: 0 15px 15px 15px; }
     }
   </style>
 </head>
@@ -130,12 +281,12 @@
   <div class="i-team-banner">
     <img src="logo.png" alt="Chattanooga Logo" class="banner-logo">
     <p class="banner-text">
-      This prototype uses AI to scan updates and instantly surface opportunities focused on employment, training, networking, and economic stability.
+      This prototype uses AI to scan city updates and instantly surface opportunities focused on employment, training, networking, and economic stability.
     </p>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSeiqIRddsindAw5gyvsWw0bCnnbzBgxh0-rZzzk7JJ1WYTziQ/viewform?usp=sharing&ouid=103538615642769301622" target="_blank" class="survey-button">User Survey</a>
   </div>
 
-  <div id="google_translate_element" style="position: absolute; top: -9999px;"></div>
+  <div id="google_translate_element"></div>
 
   <div class="header">
     <h1>Economic Opportunity & Events Hub</h1>
@@ -151,18 +302,12 @@
 
     <div class="filter-controls">
       <input type="text" id="searchBar" placeholder="Search opportunities..." onkeyup="applyFilters()">
-      <select id="categoryFilter" onchange="handleCategoryChange()">
-        <option value="All Opportunities">All Opportunities</option>
-        <option value="Hiring Fair">Hiring Fairs</option>
-        <option value="Training & Upskilling">Training & Upskilling</option>
-        <option value="Networking Event">Networking Events</option>
-        <option value="Job Listing">Job Listings</option>
-        <option value="Support Services">Support Services</option>
+      <select id="authorFilter" onchange="handleAuthorChange()">
       </select>
     </div>
   </div>
 
-  <div id="status-msg">Loading parsed opportunities...</div>
+  <div id="status-msg">Initializing news feed...</div>
 
   <div id="news-wall" class="feed-container">
     <div class="column" id="col-1"></div>
@@ -172,13 +317,28 @@
 
   <script type="text/javascript">
     function googleTranslateElementInit() {
-      new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'en,es', autoDisplay: false }, 'google_translate_element');
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es',
+        autoDisplay: false
+      }, 'google_translate_element');
     }
   </script>
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <script>
-    let allOpportunities = [];
+    // Updated dropdown parameters to reflect the AI Event Categories exactly
+    const CATEGORY_LIST = [
+      "All Opportunities", 
+      "Hiring Fair", 
+      "Training & Upskilling", 
+      "Networking Event", 
+      "Job Listing",
+      "Support Services"
+    ];
+
+    let dropdownInitialized = false;
+    let cachedItems = []; // Keeps reference for quick client filtering
 
     function toggleLanguage() {
       const isSpanish = document.getElementById('langToggle').checked;
@@ -189,83 +349,111 @@
       }
     }
 
-    async function loadOpportunities() {
+    async function loadNews(selectedAuthor = "All Opportunities") {
       const status = document.getElementById('status-msg');
-      const DATA_ENDPOINT = "./opportunities.json"; 
+      
+      // Fetches directly from your local static dataset generated by Python
+      const fetchUrl = `./opportunities.json`;
 
       try {
         status.style.display = 'block';
-        const response = await fetch(DATA_ENDPOINT);
-        allOpportunities = await response.json();
+        status.innerText = `Updating feed for ${selectedAuthor}...`;
+        
+        const response = await fetch(fetchUrl);
+        const data = await response.json();
+        
+        // Adjust for schema: look directly at array objects
+        cachedItems = data;
 
-        if (!allOpportunities || allOpportunities.length === 0) {
-          status.innerText = "No relevant resources found at this time.";
+        if (!cachedItems || cachedItems.length === 0) {
+          status.innerText = "No announcements found.";
           return;
         }
 
+        if (!dropdownInitialized) {
+          populateDropdown();
+        }
+
         status.style.display = 'none';
-        displayPosts(allOpportunities);
+        distributePosts(cachedItems, selectedAuthor);
       } catch (err) {
-        status.innerHTML = `<div style="color:red;">Error synchronizing AI feed data log.</div>`;
+        status.innerHTML = `<div style="color:red;">Error loading news.</div>`;
       }
     }
 
-    function displayPosts(posts) {
+    function populateDropdown() {
+      const filter = document.getElementById('authorFilter');
+      filter.innerHTML = '';
+      CATEGORY_LIST.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat === "All Opportunities" ? cat : cat + "s";
+        filter.appendChild(option);
+      });
+      dropdownInitialized = true;
+    }
+
+    function distributePosts(posts, activeFilter) {
       const cols = [document.getElementById('col-1'), document.getElementById('col-2'), document.getElementById('col-3')];
       cols.forEach(c => c.innerHTML = "");
 
       let visibleCount = 0;
       posts.forEach((post) => {
+        
+        // Extract category parameter directly from AI payload property
+        let authorName = post.ai_category || "Opportunity";
+
+        // Filter cards dynamically based on active selection block
+        if (activeFilter !== "All Opportunities" && authorName !== activeFilter) {
+          return; 
+        }
+
+        let imageSrc = post.image;
+        const processedText = (post.content_text || "").trim();
+
+        // Safety block: prevent empty social media logs from breaking layout stability
+        if (processedText.length < 10) return;
+
         let pubDate = "";
         if (post.date_published) {
           const d = new Date(post.date_published);
-          pubDate = d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+          pubDate = d.toLocaleDateString(undefined, {
+            month: 'short',
+            day: 'numeric'
+          });
         }
 
-        // Backend script already cleans and dedupes descriptions, keeping frontend minimal
-        const description = post.content_text || "";
-        const cleanText = description.length > 300 ? description.substring(0, 300) + "..." : description;
-
-        // Image extractor logic now lives in backend script; frontend just displays image if present
-        const imgTag = post.image ? `<img src="${post.image}" class="post-image" onerror="this.parentElement.removeChild(this)">` : '';
+        // Hide broken image cards cleanly using your original standard tag design
+        const imgTag = imageSrc ? `<img src="${imageSrc}" class="post-image" onerror="this.parentElement.removeChild(this)">` : '';
+        const cleanText = processedText.length > 400 ? processedText.substring(0, 400) + "..." : processedText;
         
-        // Minimal Content Body: NO Badge, NO Bold Title
-        const textTag = `<div class="post-content"><p>${cleanText}</p></div>`;
+        // Exact styling match from original: No titles, cleanly wrapped paragraph text blocks
+        const textTag = cleanText ? `<div class="post-content"><p>${cleanText}</p></div>` : '';
         
-        // Locked Footer Structure: Date left, Source right, grey font, flex spacing, no bolding
-        const authorTag = `<div class="post-author"><span>${pubDate}</span><span>${post.original_source || 'City Opportunity'}</span></div>`;
+        // Footer elements matched perfectly: left-justified date, right-justified tag label
+        const authorTag = `<span class="post-author"><span>${pubDate}</span><span>${authorName}</span></span>`;
 
-        // data-category attribute is hidden from view but still used for instant filtering
-        const cardHtml = `<a href="${post.url}" class="post-card" data-category="${post.ai_category}" target="_blank">${imgTag}${textTag}${authorTag}</a>`;
+        const cardHtml = `<a href="${post.url}" class="post-card" target="_blank">${imgTag}${textTag}${authorTag}</a>`;
         
         cols[visibleCount % 3].insertAdjacentHTML('beforeend', cardHtml);
         visibleCount++;
       });
     }
 
-    function handleCategoryChange() {
-      const selectedCategory = document.getElementById('categoryFilter').value;
-      applyFilters(selectedCategory);
+    function handleAuthorChange() {
+      const selectedAuthor = document.getElementById('authorFilter').value;
+      distributePosts(cachedItems, selectedAuthor);
     }
 
-    function applyFilters(selectedCategory = document.getElementById('categoryFilter').value) {
+    function applyFilters() {
       const query = document.getElementById('searchBar').value.toLowerCase();
-      
       document.querySelectorAll('.post-card').forEach(card => {
-        const cardCategory = card.getAttribute('data-category');
-        const matchesSearch = card.innerText.toLowerCase().includes(query);
-        const matchesCategory = (selectedCategory === "All Opportunities" || cardCategory === selectedCategory);
-
-        if (matchesSearch && matchesCategory) {
-          card.style.display = "flex";
-        } else {
-          card.style.display = "none";
-        }
+        const matches = card.innerText.toLowerCase().includes(query);
+        card.style.display = matches ? "block" : "none";
       });
     }
 
-    loadOpportunities();
-    setInterval(loadOpportunities, 10 * 60 * 1000); // Check for backend updates every 10 mins
+    loadNews("All Opportunities");
   </script>
 </body>
 
