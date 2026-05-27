@@ -34,14 +34,14 @@ def analyze_with_ai(title, description):
     """Sends the post to OpenAI to filter and classify."""
     prompt = f"""
     You are an expert career counselor and economic development assistant. 
-    Analyze this item and decide if it's highly relevant to job seekers, career changers, or those seeking upskilling.
+    Analyze this item and decide if it's highly relevant to job seekers, career changers, or those seeking upskilling or social service supports.
 
     Title: {title}
     Description: {description}
 
     Rules:
-    - Set 'is_relevant' to true ONLY if it's a job listing, training/certification program, hiring fair, resume workshop, or networking event.
-    - Select exactly one 'category' from: "Hiring Fair", "Training & Upskilling", "Networking Event", "Job Listing".
+    - Set 'is_relevant' to true ONLY if it's a job listing, training/certification program, hiring fair, resume workshop, networking event, or support services (like childcare, housing, financial support, etc).
+    - Select exactly one 'category' from: "Hiring Fair", "Training & Upskilling", "Networking Event", "Job Listing", and "Support Services".
 
     Respond ONLY with a JSON object matching this schema:
     {{
