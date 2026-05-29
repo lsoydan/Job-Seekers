@@ -37,12 +37,13 @@ def clean_html_tags(text):
 
 def analyze_with_ai(description):
     prompt = f"""
-    You are an expert career counselor. Decide if this item is highly relevant to job seekers, upskilling, or community support services.
+    You are an expert career counselor. Identify if this social media post is highly relevant AND actionaable for job seekers or those looking for upskilling, 
+    or networking opportunities, or community support services.
     Description: {description}
 
     Rules:
-    - Set 'is_relevant' to true ONLY for jobs, hiring events, training programs, or critical support services.
-    - Choose exactly one: "Hiring Fair", "Training & Upskilling", "Networking Event", "Job Listing", "Support Services".
+    - Set 'is_relevant' to true ONLY for job postings, hiring events, training programs, networking, or critical support services like housing, childcare, transit, or financial support.
+    - Choose exactly one: "Job Listing", "Hiring Fair", "Training & Upskilling", "Networking Event", "Support Services".
 
     Respond ONLY with a JSON object:
     {{
@@ -94,13 +95,20 @@ def main():
         ai_decision = analyze_with_ai(clean_description)
         
         if ai_decision.get("is_relevant"):
+            # FIX: Safely parse RSS author structures from feedparser
+            authors_data = entry.get("authors", [])
+            if not authors_data and entry.get("author"):
+                # If 'authors' array doesn't exist, map the flat string to the array structure
+                authors_data = [{"name": entry.get("author")}]
+
             # This object format matches your original code keys perfectly
             new_opportunity = {
                 "url": entry.get("link", ""),
                 "image": image_url,
                 "content_text": clean_description,
                 "ai_category": ai_decision.get("category"),
-                "date_published": entry.get("published", entry.get("updated", ""))
+                "date_published": entry.get("published", entry.get("updated", "")),
+                "authors": authors_data  # <-- Added to match your web script's expectations
             }
             existing_opportunities.insert(0, new_opportunity)
             new_entries_found = True
