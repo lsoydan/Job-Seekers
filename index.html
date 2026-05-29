@@ -327,24 +327,24 @@
   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <script>
+    // Explicit, clean, multi-tag matching category list
     const CATEGORY_LIST = [
       "All Opportunities", 
       "Job Listings",
-      "Hiring Fairs",
-      "Training & Upskilling",
+      "Hiring Fairs", 
+      "Training & Upskilling", 
       "Internships & Apprenticeships",
       "Workshops & Seminars",
-      "Networking Events",
+      "Networking Events", 
       "Small Business & Entrepreneurship",
       "Grants & Financial Aid",
       "Support Services"
-      
     ];
 
     let dropdownInitialized = false;
     let cachedItems = []; 
 
-    // Handle initialization race conditions with Google Translate dropdown integration
+    // Handle initialization race conditions with Google Translate dropdown integrations
     function toggleLanguage() {
       const isSpanish = document.getElementById('langToggle').checked;
       const combo = document.querySelector('#google_translate_element select') || document.querySelector('.goog-te-combo');
@@ -386,13 +386,13 @@
       }
     }
 
-  function populateDropdown() {
+    function populateDropdown() {
       const filter = document.getElementById('authorFilter');
       filter.innerHTML = '';
       CATEGORY_LIST.forEach(cat => {
         const option = document.createElement('option');
         option.value = cat;
-        option.textContent = cat; // <-- Clean pass-through. No hidden "s" added here.
+        option.textContent = cat; // Direct pass-through mapping
         filter.appendChild(option);
       });
       dropdownInitialized = true;
@@ -405,10 +405,11 @@
       let visibleCount = 0;
       posts.forEach((post) => {
         
-        // Retained cleanly behind-the-scenes for the category dropdown logic
-        let categoryName = post.ai_category || "Opportunity";
+        // Pull the categories array compiled by the backend
+        let postCategories = post.ai_categories || [];
 
-        if (activeFilter !== "All Opportunities" && categoryName !== activeFilter) {
+        // Scans the category list array using .includes() to see if active filter is present
+        if (activeFilter !== "All Opportunities" && !postCategories.includes(activeFilter)) {
           return; 
         }
 
@@ -430,10 +431,8 @@
         const cleanText = processedText.length > 400 ? processedText.substring(0, 400) + "..." : processedText;
         const textTag = cleanText ? `<div class="post-content"><p>${cleanText}</p></div>` : '';
         
-        // Extracts the human author field from the parsed RSS feed arrays
+        // Displays human RSS feed author
         let authorName = (post.authors && post.authors[0]) ? post.authors[0].name : "City Update";
-
-        // Displays actual RSS author name inside the right side of the card footer
         const authorTag = `<span class="post-author"><span>${pubDate}</span><span>${authorName}</span></span>`;
 
         const cardHtml = `<a href="${post.url}" class="post-card" target="_blank">${imgTag}${textTag}${authorTag}</a>`;
