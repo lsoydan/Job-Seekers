@@ -37,13 +37,12 @@ def clean_html_tags(text):
 
 def analyze_with_ai(description):
     prompt = f"""
-    You are an expert career counselor. Identify if this social media post is highly relevant AND actionaable for job seekers or those looking for upskilling, 
-    or networking opportunities, or community support services.
+    You are an expert career counselor. Identify if this social media post is highly relevant AND actionaable for job seekers or those looking for training/upskilling, networking opportunities, or community support services.
     Description: {description}
 
     Rules:
     - Set 'is_relevant' to true ONLY for job postings, hiring events, training programs, networking, or critical support services like housing, childcare, transit, or financial support.
-    - Choose exactly one: "Job Listing", "Hiring Fair", "Training & Upskilling", "Networking Event", "Support Services".
+    - Choose exactly one: "Job Listings", "Hiring Fairs", "Training & Upskilling", "Networking Events", "Support Services".
 
     Respond ONLY with a JSON object:
     {{
